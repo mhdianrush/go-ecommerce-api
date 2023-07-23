@@ -17,6 +17,7 @@ type Server struct {
 
 func (server *Server) Initialize() {
 	server.Router = mux.NewRouter()
+	server.InitializeRoutes()
 }
 
 func (server *Server) Run(address string) {

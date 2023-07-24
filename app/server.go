@@ -15,6 +15,12 @@ type Server struct {
 	Router *mux.Router
 }
 
+type AppConfig struct {
+	AppName string
+	AppEnv  string
+	AppPort string
+}
+
 func (server *Server) Initialize() {
 	server.Router = mux.NewRouter()
 	server.InitializeRoutes()
@@ -30,7 +36,12 @@ func (server *Server) Run(address string) {
 
 func Run() {
 	var server = Server{}
+	var appConfig = AppConfig{}
+
+	appConfig.AppName = "ECommerceWeb"
+	appConfig.AppEnv = "development"
+	appConfig.AppPort = "8080"
 
 	server.Initialize()
-	server.Run(":8080")
+	server.Run(":" + appConfig.AppPort)
 }

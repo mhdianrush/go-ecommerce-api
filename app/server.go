@@ -2,8 +2,10 @@ package app
 
 import (
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
 	"gorm.io/gorm"
 )
@@ -34,13 +36,25 @@ func (server *Server) Run(address string) {
 	}
 }
 
+func getEnv(key, fallback string) string {
+	if value, ok := os.LookupEnv(key); ok {
+		return value
+	}
+	return fallback
+}
+
 func Run() {
 	var server = Server{}
 	var appConfig = AppConfig{}
 
-	appConfig.AppName = "ECommerceWeb"
-	appConfig.AppEnv = "development"
-	appConfig.AppPort = "8080"
+	err := godotenv.Load()
+	if err != nil {
+		logger.Printf("error loaded env file %s", err.Error())
+	}
+
+	appConfig.AppName = getEnv("APP_NAME", "failed load app name")
+	appConfig.AppEnv = getEnv("APP_ENV", "failed load app env")
+	appConfig.AppPort = getEnv("APP_PORT", "failed load app port")
 
 	server.Initialize()
 	server.Run(":" + appConfig.AppPort)

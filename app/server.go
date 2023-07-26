@@ -25,11 +25,19 @@ type AppConfig struct {
 	AppPort string
 }
 
-func (server *Server) Initialize() {
+type DatabaseConfig struct {
+	DatabaseHost     string
+	DatabaseUser     string
+	DatabasePassword string
+	DatabaseName     string
+	DatabasePort     string
+}
+
+func (server *Server) Initialize(databaseConfig DatabaseConfig) {
 	var err error
 	connStr := fmt.Sprintf(
 		"host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Jakarta",
-		os.Getenv("DATABASE_HOST"), os.Getenv("DATABASE_USER"), os.Getenv("DATABASE_PASSWORD"), os.Getenv("DATABASE_NAME"), os.Getenv("DATABASE_PORT"),
+		databaseConfig.DatabaseHost, databaseConfig.DatabaseUser, databaseConfig.DatabasePassword, databaseConfig.DatabaseName, databaseConfig.DatabasePort,
 	)
 
 	server.DB, err = gorm.Open(postgres.Open(connStr), &gorm.Config{})
@@ -59,6 +67,7 @@ func getEnv(key, fallback string) string {
 func Run() {
 	var server = Server{}
 	var appConfig = AppConfig{}
+	var databaseConfig = DatabaseConfig{}
 
 	err := godotenv.Load()
 	if err != nil {
@@ -69,6 +78,12 @@ func Run() {
 	appConfig.AppEnv = getEnv("APP_ENV", "failed load app env")
 	appConfig.AppPort = getEnv("APP_PORT", "failed load app port")
 
-	server.Initialize()
+	databaseConfig.DatabaseHost = getEnv("DATABASE_HOST", "failed load database host")
+	databaseConfig.DatabaseUser = getEnv("DATABASE_USER", "failed load database user")
+	databaseConfig.DatabasePassword = getEnv("DATABASE_PASSWORD", "failed load database password")
+	databaseConfig.DatabaseName = getEnv("DATABASE_NAME", "failed load database name")
+	databaseConfig.DatabasePort = getEnv("DATABASE_PORT", "failed load database port")
+
+	server.Initialize(databaseConfig)
 	server.Run(":" + appConfig.AppPort)
 }

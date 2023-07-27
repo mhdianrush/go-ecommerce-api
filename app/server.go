@@ -44,6 +44,14 @@ func (server *Server) InitializeDatabase(databaseConfig DatabaseConfig) {
 	if err != nil {
 		logger.Printf("failed connected to database %s", err.Error())
 	}
+
+	for _, entity := range RegisterEntities() {
+		err = server.DB.Debug().AutoMigrate(entity.Entity)
+		if err != nil {
+			logger.Printf("failed auto migrate database with gorm %s", err.Error())
+		}
+	}
+	logger.Println("success migrate database with gorm")
 }
 
 func (server *Server) Initialize(databaseConfig DatabaseConfig) {

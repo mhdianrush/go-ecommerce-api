@@ -14,5 +14,17 @@ func RegisterEntities() []Entity {
 		{
 			Entity: entities.Address{},
 		},
+		{
+			Entity: entities.Product{},
+		},
+		{
+			Entity: entities.ProductImage{},
+		},
+		{
+			Entity: entities.Section{},
+		},
+		{
+			Entity: entities.Category{},
+		},
 	}
 }

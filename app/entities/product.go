@@ -25,4 +25,5 @@ type Product struct {
 	DeletedAt        gorm.DeletedAt
 	User             User
 	ProductImage     []ProductImage
+	Categories       []Category `gorm:"many2many:product_categories"`
 }

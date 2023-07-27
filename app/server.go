@@ -33,7 +33,7 @@ type DatabaseConfig struct {
 	DatabasePort     string
 }
 
-func (server *Server) Initialize(databaseConfig DatabaseConfig) {
+func (server *Server) InitializeDatabase(databaseConfig DatabaseConfig) {
 	var err error
 	connStr := fmt.Sprintf(
 		"host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Jakarta",
@@ -44,8 +44,10 @@ func (server *Server) Initialize(databaseConfig DatabaseConfig) {
 	if err != nil {
 		logger.Printf("failed connected to database %s", err.Error())
 	}
+}
 
-	server.Router = mux.NewRouter()
+func (server *Server) Initialize(databaseConfig DatabaseConfig) {
+	server.InitializeDatabase(databaseConfig)
 	server.InitializeRoutes()
 }
 

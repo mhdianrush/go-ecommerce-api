@@ -12,7 +12,7 @@ type OrderCustomer struct {
 	ProvinceId string `gorm:"size:200"`
 	Address1   string `gorm:"size:200"`
 	Address2   string `gorm:"size:200"`
-	Phone      string `gorm:"size:65"`
+	Phone      string `gorm:"size:200"`
 	Email      string `gorm:"size:200"`
 	PostCode   string `gorm:"size:200"`
 	CreatedAt  time.Time

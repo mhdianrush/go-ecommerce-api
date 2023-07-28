@@ -13,7 +13,6 @@ type Shipment struct {
 	OrderId       string          `gorm:"size:40;index"`
 	TrackNumber   string          `gorm:"size:200;index"`
 	Status        string          `gorm:"size:40;index"`
-	TotalWeight   decimal.Decimal `gorm:"type:decimal(10,2)"`
 	Firstname     string          `gorm:"size:200;not null"`
 	LastName      string          `gorm:"size:200;not null"`
 	CityId        string          `gorm:"size:200"`
@@ -24,6 +23,7 @@ type Shipment struct {
 	Email         string          `gorm:"size:200"`
 	PostCode      string          `gorm:"size:200"`
 	ShippedBy     string          `gorm:"size:40"`
+	TotalWeight   decimal.Decimal `gorm:"type:decimal(10,2)"`
 	TotalQuantity int
 	ShippedAt     time.Time
 	CreatedAt     time.Time

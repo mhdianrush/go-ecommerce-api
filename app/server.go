@@ -51,7 +51,7 @@ func (server *Server) InitializeDatabase(databaseConfig DatabaseConfig) {
 			logger.Printf("failed auto migrate database with gorm %s", err.Error())
 		}
 	}
-	logger.Println("success migrate database with gorm")
+	logger.Println("Success Migrate Database With GORM")
 }
 
 func (server *Server) Initialize(databaseConfig DatabaseConfig) {

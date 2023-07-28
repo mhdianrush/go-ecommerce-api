@@ -11,7 +11,6 @@ type Payment struct {
 	Id                   string          `gorm:"primaryKey;not null;uniqueIndex;size:40"`
 	OrderId              string          `gorm:"size:40;index"`
 	Number               string          `gorm:"size:200;index"`
-	Amount               decimal.Decimal `gorm:"type:decimal(16,2)"`
 	Method               string          `gorm:"size:200"`
 	Status               string          `gorm:"size:200"`
 	Token                string          `gorm:"size:200;index"`
@@ -20,6 +19,7 @@ type Payment struct {
 	VirtualAccountNumber string          `gorm:"size:200"`
 	BillCode             string          `gorm:"size:200"`
 	BillKey              string          `gorm:"size:200"`
+	Amount               decimal.Decimal `gorm:"type:decimal(16,2)"`
 	CreatedAt            time.Time
 	UpdatedAt            time.Time
 	DeletedAt            gorm.DeletedAt

@@ -7,6 +7,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
+	"github.com/mhdianrush/go-ecommerce-api/database/seeders"
 	"github.com/sirupsen/logrus"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -57,6 +58,7 @@ func (server *Server) InitializeDatabase(databaseConfig DatabaseConfig) {
 func (server *Server) Initialize(databaseConfig DatabaseConfig) {
 	server.InitializeDatabase(databaseConfig)
 	server.InitializeRoutes()
+	seeders.DatabaseSeed(server.DB)
 }
 
 func (server *Server) Run(address string) {

@@ -21,8 +21,6 @@ type Server struct {
 }
 
 type AppConfig struct {
-	AppName string
-	AppEnv  string
 	AppPort string
 }
 
@@ -86,8 +84,6 @@ func Run() {
 		logger.Printf("error loaded env file %s", err.Error())
 	}
 
-	appConfig.AppName = getEnv("APP_NAME", "failed load app name")
-	appConfig.AppEnv = getEnv("APP_ENV", "failed load app env")
 	appConfig.AppPort = getEnv("APP_PORT", "failed load app port")
 
 	databaseConfig.DatabaseHost = getEnv("DATABASE_HOST", "failed load database host")

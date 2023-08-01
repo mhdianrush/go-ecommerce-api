@@ -14,6 +14,9 @@ func RegisterSeeders(db *gorm.DB) []Seeder {
 		{
 			Seeder: fakers.UserFaker(db),
 		},
+		{
+			Seeder: fakers.ProductFaker(db),
+		},
 	}
 }
 

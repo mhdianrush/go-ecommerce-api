@@ -10,14 +10,21 @@ import (
 	"github.com/gosimple/slug"
 	"github.com/mhdianrush/go-ecommerce-api/app/entities"
 	"github.com/shopspring/decimal"
+	"github.com/sirupsen/logrus"
 	"gorm.io/gorm"
 )
 
+var logger = logrus.New()
+
 func ProductFaker(db *gorm.DB) *entities.Product {
+	user := UserFaker(db)
+	if err := db.Create(&user).Error; err != nil {
+		logger.Printf("failed create user data %s", err.Error())
+	}
 	return &entities.Product{
 		Id:               uuid.New().String(),
-		UserId:           "",
-		Sku:              "",
+		UserId:           user.Id,
+		Sku:              slug.Make(faker.Name()),
 		Name:             faker.Name(),
 		Slug:             slug.Make(faker.Name()),
 		ShortDescription: faker.Paragraph(),

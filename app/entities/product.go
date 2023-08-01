@@ -14,7 +14,7 @@ type Product struct {
 	Sku              string          `gorm:"size:200;index"`
 	Name             string          `gorm:"size:200"`
 	Slug             string          `gorm:"size:200"`
-	ShortDescription string          `gorm:"size:200"`
+	ShortDescription string          `gorm:"type:text"`
 	Description      string          `gorm:"type:text"`
 	Price            decimal.Decimal `gorm:"type:decimal(16,2)"`
 	Weight           decimal.Decimal `gorm:"type:decimal(10,2)"`

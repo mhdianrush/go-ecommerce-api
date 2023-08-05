@@ -55,7 +55,7 @@ func (server *Server) dbMigrate() {
 			logger.Printf("failed auto migrate database with gorm %s", err.Error())
 		}
 	}
-	logger.Println("Success Migrate Database With GORM")
+	logger.Println("success migrate database with GORM")
 }
 
 func (server *Server) initCommands(appConfig AppConfig, databaseConfig DatabaseConfig) {
@@ -74,7 +74,7 @@ func (server *Server) initCommands(appConfig AppConfig, databaseConfig DatabaseC
 			Name: "db:seed",
 			Action: func(c *cli.Context) error {
 				if err := seeders.DatabaseSeed(server.DB); err != nil {
-					logger.Printf("failed insert data to database seed %s", err.Error())
+					logger.Printf("failed insert seed data to database %s", err.Error())
 				}
 				return nil
 			},
@@ -85,12 +85,12 @@ func (server *Server) initCommands(appConfig AppConfig, databaseConfig DatabaseC
 	}
 }
 
-func (server *Server) Initialize(databaseConfig DatabaseConfig) {
+func (server *Server) Initialize() {
 	server.InitializeRoutes()
 }
 
 func (server *Server) Run(address string) {
-	logger.Printf("Server Running on Port %s", address)
+	logger.Printf("server running on port %s", address)
 	err := http.ListenAndServe(address, server.Router)
 	if err != nil {
 		logger.Printf("failed connected to server %s", err.Error())
@@ -127,6 +127,6 @@ func Run() {
 	if argument != "" {
 		server.initCommands(appConfig, databaseConfig)
 	}
-	server.Initialize(databaseConfig)
+	server.Initialize()
 	server.Run(":" + appConfig.AppPort)
 }

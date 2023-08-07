@@ -18,6 +18,6 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		"title": "Home Page Title",
 		"body":  "Home Page Description",
 	}); err != nil {
-		logger.Printf("failed load html file %s", err.Error())
+		logger.Printf("failed load tmpl file %s", err.Error())
 	}
 }
